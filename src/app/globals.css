@@ -1,26 +1,286 @@
 @import "tailwindcss";
 
+/* =========================================================
+   GLOBAL BOX SIZING
+========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: clip;
+}
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #111111;
+  --muted: #5f5f5f;
+
+  --primary: #fd9e04;
+
+  --glass-bg: rgba(255, 255, 255, 0.68);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.85);
+
+  --ring-color: rgba(0, 0, 0, 0.08);
+
+  --hero-glow:
+    radial-gradient(
+      circle,
+      rgba(140, 140, 140, 0.16) 0%,
+      rgba(140, 140, 140, 0.06) 45%,
+      transparent 72%
+    );
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+[data-theme="dark"] {
+  --background: #050505;
+  --foreground: #ffffff;
+  --muted: #b6b6b6;
+
+  --primary: #fd9e04;
+
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+
+  --ring-color: rgba(255, 255, 255, 0.08);
+
+  --hero-glow:
+    radial-gradient(
+      circle,
+      rgba(253, 158, 4, 0.22) 0%,
+      rgba(253, 158, 4, 0.1) 45%,
+      transparent 72%
+    );
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background 0.35s ease,
+    color 0.35s ease;
+}
+
+/* =========================================================
+   FLOAT
+========================================================= */
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hero-card {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   TEXT SELECTION
+========================================================= */
+
+::selection {
+  background: #fd9e04;
+  color: #000;
+}
+
+::-moz-selection {
+  background: #fd9e04;
+  color: #000;
+}
+
+/* =========================================================
+   TERMINAL SCAN
+========================================================= */
+
+@keyframes terminalScan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(350%);
+  }
+}
+
+/* =========================================================
+   SKILLS RIBBON
+========================================================= */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.skills-track {
+  animation: marquee 28s linear infinite;
+}
+
+.skills-track:hover {
+  animation-play-state: paused;
+}
+
+/* =========================================================
+   CAREER PATH BACKGROUND
+========================================================= */
+
+.career-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+
+  background-image:
+    linear-gradient(var(--foreground) 1px, transparent 1px),
+    linear-gradient(90deg, var(--foreground) 1px, transparent 1px);
+
+  background-size: 70px 70px;
+}
+
+.career-blob {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  filter: blur(120px);
+  opacity: 0.08;
+
+  animation: blobMove 14s ease-in-out infinite;
+}
+
+@keyframes blobMove {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(60px, -40px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* =========================================================
+   CARD SHINE
+========================================================= */
+
+.card-shine {
+  position: absolute;
+  inset: -150%;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.18),
+      transparent
+    );
+
+  transform: rotate(20deg);
+  transition: 0.8s;
+  opacity: 0;
+}
+
+.group:hover .card-shine {
+  inset: -50%;
+  opacity: 1;
+}
+
+/* =========================================================
+   CAREER CARDS
+========================================================= */
+
+.card-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+
+  background-image:
+    linear-gradient(var(--foreground) 1px, transparent 1px),
+    linear-gradient(90deg, var(--foreground) 1px, transparent 1px);
+
+  background-size: 36px 36px;
+}
+
+/* =========================================================
+   CARD RESPONSIVENESS SAFETY
+========================================================= */
+
+#career-paths {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#career-paths > div {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#career-paths a,
+#career-paths [class*="tilt"] {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* =========================================================
+   ROTATING GRADIENT
+========================================================= */
+
+@keyframes rotateGradient {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

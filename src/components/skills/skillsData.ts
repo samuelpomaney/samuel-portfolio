@@ -1,11 +1,11 @@
 const skills = [
   {
-    title: "Linux",
+    title: "Marketing",
     items: [
-      "Ubuntu",
-      "Bash",
-      "Permissions",
-      "SSH",
+      "Analytics",
+      "Brand Strategy",
+      "Content",
+      "SEO",
     ],
   },
 

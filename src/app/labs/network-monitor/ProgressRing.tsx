@@ -24,10 +24,7 @@ export default function ProgressRing({ value, label }: Props) {
         strokeDasharray={circumference}
         initial={{ strokeDashoffset: circumference }}
         animate={{ strokeDashoffset: offset }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-        }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         style={{
           rotate: -90,
           transformOrigin: "50% 50%",
